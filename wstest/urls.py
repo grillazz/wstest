@@ -20,5 +20,5 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include('crazywheels.urls')),
+    url(r'^', include('crazywheels.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # for dev only

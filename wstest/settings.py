@@ -25,7 +25,7 @@ SECRET_KEY = 'f@3@6qt%u5hl^*d#hv#2wpsr&!kpjt^fyfj621am(h1g@!$&$y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 3rd party libs
+    'rest_framework',
+    # project apps
+    'crazywheels.apps.CrazywheelsConfig',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = 'media/crazywheels/'
+MEDIA_URL = '/media/crazywheels/'

@@ -13,4 +13,4 @@ services:
 
   tests:
     extends: web
-    command: py.test -s
+    command: py.test -s --cov=. --cov-report=html

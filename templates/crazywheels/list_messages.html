@@ -1,0 +1,15 @@
+{% extends "crazywheels/base.html" %}
+{% block content %}
+    {% verbatim %}
+    <div ng-app="messageApp" ng-controller="MessageList" data-id="Message">
+
+        <div class="panel" ng-repeat="message in messages">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title">{{ message.title }}</h3>
+            </div>
+            <p class="well">{{ message.message }}</p>
+            <img class="img-thumbnail" ng-src="{{ message.image }}" alt="some picture should be here..." height="200" width="200">
+        </div>
+    </div>
+    {% endverbatim %}
+{% endblock content %}

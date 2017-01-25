@@ -2,6 +2,15 @@ version: '2'
 
 services:
 
+  db:
+    image: mdillon/postgis
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: docker
+    ports:
+      - "6432:5432"
+
   web:
     build: .
     user: root
@@ -9,8 +18,19 @@ services:
       - .:/code/
     ports:
       - "8000:8000"
+    links:
+      - db
     command: python manage.py runserver 0.0.0.0:8000
 
   tests:
-    extends: web
-    command: py.test -s --cov=. --cov-report=html
+    build: .
+    user: root
+    volumes:
+      - .:/code/
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    command: py.test -s --cov=. --cov-report=
+
+

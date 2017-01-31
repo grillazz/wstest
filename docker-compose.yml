@@ -20,7 +20,7 @@ services:
       - db
     command: python manage.py runserver 0.0.0.0:8000
 
-  tests:
+  test:
     build: .
     user: root
     volumes:

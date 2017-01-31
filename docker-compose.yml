@@ -29,7 +29,7 @@ services:
       - "8000:8000"
     links:
       - db
-    command: py.test -s --cov=. --cov-report=html
+    command: py.test -s --cov=.
 
 
 

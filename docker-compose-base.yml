@@ -1,0 +1,12 @@
+version: '2.1'
+
+services:
+
+  base:
+    build: .
+    user: root
+    volumes:
+      - .:/code/
+    environment:
+      DJANGO_SETTINGS_MODULE: wstest.settings
+    restart: always

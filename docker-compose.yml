@@ -1,35 +1,46 @@
-version: '2'
+version: '2.1'
 
 services:
 
   db:
-    image: mdillon/postgis
+    image: postgres
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
       POSTGRES_DB: docker
+    ports:
+      - "6432:5432"
+    healthcheck:
+      test: "exit 0"
 
   web:
     build: .
     user: root
+    depends_on:
+      db:
+        condition: service_healthy
     volumes:
       - .:/code/
     ports:
       - "8000:8000"
-    links:
-      - db
+    environment:
+      DJANGO_SETTINGS_MODULE: wstest.settings
     command: python manage.py runserver 0.0.0.0:8000
+    restart: always
 
   test:
     build: .
     user: root
+    depends_on:
+      db:
+        condition: service_healthy
     volumes:
       - .:/code/
     ports:
       - "8000:8000"
-    links:
-      - db
+    environment:
+      DJANGO_SETTINGS_MODULE: wstest.settings
     command: py.test -s --cov=.
-
+    restart: always
 
 

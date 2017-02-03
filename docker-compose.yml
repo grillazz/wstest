@@ -3,7 +3,9 @@ version: '2.1'
 services:
 
   db:
-    image: postgres
+    build:
+      context: ./docker/db/
+      dockerfile: Dockerfile
     environment:
       POSTGRES_USER: docker
       POSTGRES_PASSWORD: docker
@@ -12,26 +14,33 @@ services:
       test: "exit 0"
 
   web:
-    build: .
-    extends:
-      file: docker-compose-base.yml
-      service: base
+    build:
+      context: ./docker/web/
+      dockerfile: Dockerfile
+    user: root
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - .:/code/
     ports:
-      - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+      - "8080:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: wstest.settings
+    command: python manage.py runserver 0.0.0.0:8080
+    restart: unless-stopped
 
   test:
-    build: .
-    extends:
-      file: docker-compose-base.yml
-      service: base
+    build:
+      context: ./docker/web/
+      dockerfile: Dockerfile
+    user: root
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - .:/code/
+    environment:
+      DJANGO_SETTINGS_MODULE: wstest.settings
     command: py.test -s --cov=.
-
-
-
+    restart: unless-stopped

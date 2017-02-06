@@ -27,9 +27,9 @@ before_install:
 script:  
     #- sudo docker version
     #- sudo docker-compose build web
-    - docker-compose build test
+    - docker-compose up -d test
     - docker-compose run test python manage.py migrate
-    - docker-compose run py.test -s --cov=.
+    - docker-compose run test py.test -s --cov=.
 
 
 

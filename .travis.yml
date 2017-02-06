@@ -25,9 +25,7 @@ before_install:
     - sudo chmod +x /usr/local/bin/docker-compose
 
 script:  
-    - docker-compose up -d test
-    - docker-compose run test python manage.py migrate
-    - docker-compose run test py.test -s --cov=.
-
-
-
+#    - docker-compose up -d test
+#    - docker-compose run test python manage.py migrate
+#    - docker-compose run test py.test -s --cov=.
+    - docker-compose run --rm test

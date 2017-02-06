@@ -27,7 +27,7 @@ before_install:
 script:  
     #- sudo docker version
     #- sudo docker-compose build web
-    - docker-compose build test
+    # - docker-compose build test
     - docker-compose run test
 
 

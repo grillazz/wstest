@@ -11,7 +11,7 @@ router.register(r'message', MessageViewSet, base_name='message')
 urlpatterns = (
     # urls for Django Rest Framework API
     url(r'api/v1/', include(router.urls)),
-    url(r'api/v1/api-token-auth/', obtain_jwt_token),
+    url(r'api/v1/api-token-auth/', obtain_jwt_token, name='api-token-auth'),
     url(r'crazywheels/list', AjaxListMessagesView.as_view(), name='crazywheels-list')
 
 )
